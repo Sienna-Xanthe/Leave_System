@@ -26,7 +26,7 @@
 #### 4、重写了异常处理
     文件位置：
         App\Exceptions\Handler
-    
+
 #### 5、整合了Repositories 设计模式
         生成对应文件：
             php artisan init:model-service
@@ -48,3 +48,4 @@
             App\Traits\Controller\*
         使用：
             use App\Facades\Controller\***;
+
