@@ -13,7 +13,7 @@ class Student extends \Illuminate\Foundation\Auth\User implements JWTSubject,Aut
     public $table = 'students';
     protected $remeberTokenName = NULL;
     protected $guarded = [];
-    protected $fillable = ['stu_no','stu_name','stu_phone','stu_grd_no','stu_prof_no','stu_clsno','password'];
+    protected $fillable = ['stu_no','stu_name','stu_phone','stu_grd_no','stu_clsno','password'];
     protected $hidden = [
         'password',
     ];

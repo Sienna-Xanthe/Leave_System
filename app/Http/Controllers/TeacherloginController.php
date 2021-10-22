@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TealoginRequest;
+use App\Http\Requests\TearegisteredRequest;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
 
@@ -12,7 +14,7 @@ class TeacherloginController extends Controller
      * @param Request $loginRequest
      * @return \Illuminate\Http\JsonResponse
      */
-    public function login(Request $loginRequest)
+    public function login(TealoginRequest $loginRequest)
     {
 
         try {
@@ -49,7 +51,7 @@ class TeacherloginController extends Controller
      * @return \Illuminate\Http\JsonResponse
      * @throws \Exception
      */
-    public function registered(Request $registeredRequest)
+    public function registered(TearegisteredRequest $registeredRequest)
     {
         return Teacher::createUser(self::userHandle($registeredRequest)) ?
             json_success('注册成功!',null,200  ) :
@@ -81,10 +83,11 @@ class TeacherloginController extends Controller
     }
     protected function respondWithToken($token, $msg)
     {
-        //$data = auth('api')->user();
+        $data = auth('tea')->user()->te_authority;
         return json_success( $msg, array(
             'token' => $token,
             //设置权限  'token_type' => 'bearer',
+            'authority' => $data,
             'expires_in' => auth('tea')->factory()->getTTL() * 60
         ),200);
     }

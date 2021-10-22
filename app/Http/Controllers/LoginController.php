@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StuloginRequest;
+use App\Http\Requests\SturegisteredRequest;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,7 +15,7 @@ class LoginController extends Controller
      * @param Request $loginRequest
      * @return \Illuminate\Http\JsonResponse
      */
-    public function login(Request $loginRequest)
+    public function login(StuloginRequest $loginRequest)
     {
 
         try {
@@ -50,7 +52,7 @@ class LoginController extends Controller
      * @return \Illuminate\Http\JsonResponse
      * @throws \Exception
      */
-    public function registered(Request $registeredRequest)
+    public function registered(SturegisteredRequest $registeredRequest)
     {
         return Student::createUser(self::userHandle($registeredRequest)) ?
             json_success('注册成功!',null,200  ) :
@@ -64,7 +66,6 @@ class LoginController extends Controller
         $registeredInfo['stu_name'] = $registeredInfo['stu_name'];//姓名
         $registeredInfo['stu_phone'] = $registeredInfo['stu_phone'];//手机号
         $registeredInfo['stu_grd_no'] = $registeredInfo['stu_grd_no'];//年级编号
-        $registeredInfo['stu_prof_no'] = $registeredInfo['stu_prof_no'];//专业编号
         $registeredInfo['stu_clsno'] = $registeredInfo['stu_clsno'];//班级编号
         $registeredInfo['stu_no'] = $registeredInfo['stu_no'];//学号
 
@@ -78,7 +79,7 @@ class LoginController extends Controller
 
     protected function credentials($request)
     {
-        return ['stu_no' => $request['stu_no'], 'password' => $request['password']];
+        return ['stu_phone' => $request['stu_phone'], 'password' => $request['password']];
     }
     protected function respondWithToken($token, $msg)
     {
