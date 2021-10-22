@@ -33,3 +33,20 @@ Route::prefix('teacher')->group(function () {
     Route::post('logout', 'TeacherloginController@logout'); //辅导员退出登录
     Route::post('registered', 'TeacherloginController@registered'); //辅导员注册
 });//--pxy
+
+Route::prefix('student')->group(function () {
+    Route::post('fillin', 'StudentController@fillin'); //学生填报
+    Route::get('record', 'StudentController@record'); //历史记录
+    Route::get('details', 'StudentController@details'); //详情
+});//--echojoy
+Route::prefix('teacher')->group(function () {
+    Route::get('exhibit', 'TeacherController@exhibit'); //数据展示
+    Route::get('approve', 'TeacherController@approve'); //教师审批
+    Route::get('cassette', 'TeacherController@cassette'); //记录
+});//--echojoy
+Route::prefix('secretary')->group(function () {
+    Route::get('data', 'SecretaryController@data'); //数据展示
+    Route::get('audit', 'SecretaryController@audit'); //书记审核
+    Route::get('leave', 'SecretaryController@leave'); //书记展示
+});//--echojoy
+Route::get('search', 'SecretaryController@search'); //搜索 //--echojoy
