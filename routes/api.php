@@ -50,3 +50,9 @@ Route::prefix('secretary')->group(function () {
     Route::get('leave', 'SecretaryController@leave'); //书记展示
 });//--echojoy
 Route::get('search', 'SecretaryController@search'); //搜索 //--echojoy
+Route::get('notpass', 'TeacherController@notpass'); //不通过 //--echojoy
+
+
+
+
+

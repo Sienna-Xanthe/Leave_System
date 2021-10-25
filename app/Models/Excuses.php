@@ -53,7 +53,7 @@ class Excuses extends Model
     public static function details($request){
         try{
             $res = Excuses::where('id','=',$request['id'])
-                ->select('ecs_no','ecs_stu_no','id','ecs_submit_date','ecs_begin_date','ecs_end_date','ecs_is_outed','ecs_origin','ecs_brief_reason')
+                ->select('ecs_no','ecs_stu_no','id','ecs_submit_date','ecs_begin_date','ecs_end_date','ecs_end_time','ecs_is_outed','ecs_origin','ecs_brief_reason')
                 ->get();
             return $res ?
                 $res :
@@ -222,6 +222,18 @@ class Excuses extends Model
             $res = Excuses::where('id','=',$request['id'])
                 ->select('ecs_stu_no','id','ecs_begin_date','ecs_no')
                 ->get();
+            return $res ?
+                $res :
+                false;
+        }catch (\Exception $e) {
+            logError('操作错误', [$e->getMessage()]);
+            return false;
+        }
+    }
+    public static function notpass($request){
+        try{
+            $res = Excuses::where('id','=',$request['id'])
+                ->update(['ecs_no' => 0]);
             return $res ?
                 $res :
                 false;
