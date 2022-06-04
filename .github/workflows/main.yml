@@ -1,10 +1,10 @@
 # GithHub Actions Workflow generated with Ghygen
-# Original configuration: https://ghygen.hi-folks.dev?code=5f6c46a834f294178a1cabb7443ff940
+# Original configuration: https://ghygen.hi-folks.dev?code=8e632310fae5d3a59cf8f7b1359321b9
 name: Test Laravel Github action
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   laravel-tests:
@@ -77,9 +77,16 @@ jobs:
       run: php --version
 
 # Code quality
-    - name: Execute tests (Unit and Feature tests) via PHPUnit
-# Set environment
-      env:
-        SESSION_DRIVER: array
 
-      run: vendor/bin/phpunit --testdox
+      
+    # Deploy
+    - name: Deploy
+      uses: easingthemes/ssh-deploy@v2.0.7
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.ACCESS_TOKEN }}
+        ARGS: "-avz --delete"
+        SOURCE: "dist/"
+        REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+        REMOTE_USER: ${{ secrets.REMOTE_USER }}
+        TARGET: ${{ secrets.TARGET }}
+
